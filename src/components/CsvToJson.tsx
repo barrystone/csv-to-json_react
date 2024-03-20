@@ -18,6 +18,10 @@ const useStyles = makeStyles({
   },
   button: {
     marginBottom: '20px'
+  },
+  copyButton: {
+    marginBottom: '20px',
+    marginLeft: '10px'
   }
 });
 
@@ -29,6 +33,11 @@ const CsvToJson = () => {
   const convertToJson = async () => {
     const jsonObj = await csv().fromString(csvText);
     setJsonOutput(JSON.stringify(jsonObj, null, 2));
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(jsonOutput);
+    alert('JSON output copied!');
   };
 
   return (
@@ -45,6 +54,9 @@ const CsvToJson = () => {
       />
       <button onClick={convertToJson} className={classes.button}>
         Convert to JSON
+      </button>
+      <button onClick={copyToClipboard} className={classes.copyButton}>
+        Copy JSON Output
       </button>
       <label htmlFor="jsonOutput" className={classes.label}>
         JSON Output:
